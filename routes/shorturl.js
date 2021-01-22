@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 require('dotenv').config();
-const Url = require('../models/url')
+const Url = require('../models/url');
+const dns = require('dns');
 
 // Get route for short url
 router.get('/:id',(req,res)=>{
@@ -13,23 +14,29 @@ router.get('/:id',(req,res)=>{
 
 // POST route for URLs
 router.post('/new',(req,res)=>{
-    Url.findOne({original_url:req.body.longurl},(err,url)=>{
-        if(url){
-            res.json({
-                original_url:url.original_url,
-                short_url:url.short_url
-            });
+    dns.lookup(req.body.longurl,(err)=>{
+        if(err){
+            res.json({ error: 'invalid url' });
         }else{
-            Url.find({},(err,data)=>{
-                const url = new Url;
-                url.original_url = req.body.longurl;
-                url.short_url = data.length + 1;
-                url.save((err,created_data)=>{
+            Url.findOne({original_url:req.body.longurl},(err,url)=>{
+                if(url){
                     res.json({
-                        original_url:created_data.original_url,
-                        short_url:created_data.short_url
+                        original_url:url.original_url,
+                        short_url:url.short_url
                     });
-                })
+                }else{
+                    Url.find({},(err,data)=>{
+                        const url = new Url;
+                        url.original_url = req.body.longurl;
+                        url.short_url = data.length + 1;
+                        url.save((err,created_data)=>{
+                            res.json({
+                                original_url:created_data.original_url,
+                                short_url:created_data.short_url
+                            });
+                        })
+                    });
+                }
             });
         }
     });

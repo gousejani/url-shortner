@@ -15,7 +15,7 @@ html(lang='en')
             h1.text-center.mt-5.mb-5 URL Shortner App
             div
 
-            div.w-50.mx-auto.p-3.border
+            div.col-lg-6.col-md-8.col-sm-12.mx-auto.p-3.border
                 form(method='POST',action="/api/shorturl/new")
                     .form-group
                         label URL to be shortened:
@@ -23,7 +23,7 @@ html(lang='en')
                             input.form-control.form-control-sm.mt-2.mb-2(name='longurl',type='text')
                     input.btn.btn-outline-primary.btn-sm(type='submit', value='Submit')
             
-            div.w-25.mx-auto.p-3.border.mt-4
+            div.col-lg-4.col-md-6.col-8.mx-auto.p-3.border.mt-4
                 form(method='POST',action="/api/shorturl/short")
                     .form-group
                         label Enter short URL number:
