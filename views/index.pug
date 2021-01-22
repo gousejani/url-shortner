@@ -1,0 +1,37 @@
+doctype html
+html
+    head
+        title URL Shortner
+        //- CSS only
+        link(href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1' crossorigin='anonymous')
+
+        //- link(rel='stylesheet' href='/bower_components/bootstrap/dist/css/bootstrap.css')
+        //- link(rel='stylesheet' href='/css/style.css')
+    body
+        
+        .container
+            h1.text-center.mt-5.mb-5 URL Shortner App
+            div
+
+            div.w-50.mx-auto.p-3.border
+                form(method='POST',action="/api/shorturl/new")
+                    .form-group
+                        label URL to be shortened:
+                        div.w-100
+                            input.form-control.form-control-sm.mt-2.mb-2(name='longurl',type='text')
+                    input.btn.btn-outline-primary.btn-sm(type='submit', value='Submit')
+            
+            div.w-25.mx-auto.p-3.border.mt-4
+                form(method='POST',action="/api/shorturl/short")
+                    .form-group
+                        label Enter short URL number:
+                        div.w-100
+                            input.form-control.form-control-sm.mt-2.mb-2(name='shorturl',type='text')
+                    input.btn.btn-outline-primary.btn-sm(type='submit', value='Submit')
+            
+            footer.fixed-bottom.container
+                hr
+                p Copyright &copy; 2021
+//-   script(src="/bower_components/jquery/dist/jquery.js")
+//-   script(src="/bower_components/bootstrap/dist/js/bootstrap.js")
+//-   script(src="/js/main.js")
